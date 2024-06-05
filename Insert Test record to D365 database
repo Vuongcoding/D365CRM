@@ -1,0 +1,10 @@
+DECLARE @Id INT
+SET @Id = 1
+
+WHILE @Id <= 10000
+BEGIN
+    INSERT INTO dbo.Contact(ContactId, FullName,Description,StateCode,OwnerId)
+    VALUES (NEWID(),'Testname - ' + CAST(@Id AS NVARCHAR(10)), 'this is test contact - ' + CAST(@Id AS NVARCHAR(10)) + ' name',1,'776A33FD-1F0E-EF11-AB8E-08002786E431')
+    PRINT @Id
+    SET @Id = @Id + 1
+END
