@@ -1,0 +1,106 @@
+//Set up actice directory service
+Step 1 - After Set up window server 2019. Set domain controller by click on Add role and features. 
+
+Step 2 – Click on Next > Next until you have a list of Features 
+
+Step 3 – In the list, check Active Directory Directory Services
+
+Step 4 – Then complete the installation by clicking on Next > Next until the installation completes. 
+
+  
+
+// Create a Domain and Configure the Domain Controller 
+
+To complete the process of creating a domain, we need to promote the sever to a domain controller. Follow the steps below to do that. 
+
+Step 1 – Click on the yellow triangle at the upper right and click ‘Promote this server to domain controller’. The ‘Active Directory Domain Services Configuration Wizard’ opens up as shown below 
+
+Step 2 – Click on ‘Add a new forest’ and  enter a name for the domain and add .local suffix. For this example, I’m using D365CE.local
+
+Step 3 – Click on next and then enter a password. Click Next 
+
+Don’t worry about DNS because it would choose it’s own 
+
+Step 4 – Allow the default Netbios domain name which is the same same but without .local suffix. 
+
+Click on Next to complete the installation. Allow the system to restart. 
+
+Step 5 – You can now login with D365ce\Adminstrator. Enter the password you set. 
+
+At this point, you have created a domain as well as  a domain controller. Congrats! 
+
+ 
+
+// Configure the Network Connections 
+
+This part is really very important. This is because if you don’t get it right, then you would not be able to join the machine to the domain. Follow the steps 
+
+Step 1 – Open  the Virtual Machine setting for the server. Click on Network and Select “Bridged Adapter” under Attached to. See below 
+
+Step 2 – Repeat the same process for the other Server machine as well 
+
+Step 3 – Open the Firewall Settings and turn off the firewalls 
+
+Step 4 – Do the same for the Server as well 
+
+Step 5 – Open the Network Adapter configuration. Disable IPv6 for both Server and Windows 10 
+
+Step 6 – Next, open the IP Address properties and set the preferred DNS server Ip address to the IP Address of the domain controller (this is important) 
+
+Step 7 – Open ‘My Computer’ properties and set ‘Allow Remote Connections…‘ 
+
+
+//Join Computer to Domain 
+
+At this point, we are ready to join the computer to the domain, D365CE.local 
+
+Step 1 – First change the name of the computer to ‘Windows10Client’ or any other name. To do this, use the ‘This Computer’ properties. This would prompt a restart 
+
+Step 2 – Again, open the ‘This Computer’ properties. Click on Change. 
+
+Step 3 – Under Domain, enter the name of the domain: D365CE.local then Click OK. 
+
+Step 4 – Enter the username and password of the admin user we created in the server. 
+
+Step 5 – Click OK. You will be prompted to restart. Restart. 
+
+At this point, you get a welcome message to the Domain as shown below: 
+
+5. View Active Directory Computers 
+
+Now, we would go to the server and check that the computer we joined, shows up in the domain controller 
+
+Step 1 – Log into the domain controller 
+
+Step 2 – Click on Tools at the upper right corner and select Active Directory Users and Computers 
+
+Step 3 – Expand the domain KTG.local. Click on Computer. You can then see the Windows10Client. 
+
+
+
+
+//Install SQL Server 2016
+
+Download SQL server 2016 
+
+https://www.microsoft.com/en-us/evalcenter/download-sql-server-2016
+
+Download C++ runtime: 
+
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+
+Install C++ runtime 
+
+Run ServerSetup 
+
+Input Trial key. 
+
+KKNV2-4YYK8-D8HWD-GDRMW-29YTW 
+
+Install follow file. 
+https://www.microsoft.com/en-sg/download/details.aspx?id=100451
+https://www.microsoft.com/en-in/download/details.aspx?id=36434
+
+//Install D365 CE 9.0
+Download Dynamics 9.0 at: 
+https://www.microsoft.com/en-gb/download/details.aspx?id=57478
