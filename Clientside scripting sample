@@ -1,0 +1,29 @@
+if (typeof (TestFormControl) === "undefined") { var TestFormControl = { __namespace: true }; }
+if (typeof (TestFormControl.Scripts) === "undefined") { TestFormControl.Scripts = { __namespace: true }; }
+
+TestFormControl.Scripts.PhotoRequired = {
+    handleOnSave: function (executionContext) {
+        console.log("handleOnLoad");
+
+        var formContext = executionContext.getFormContext();
+
+        // Get the account field and photo field controls
+        var accountControl = formContext.getAttribute("cr5c0_account");
+        var photoControl = formContext.getAttribute("cr5c0_photo");
+
+        // Add an event handler to the account field
+        photoControl.setRequiredLevel("required");
+        accountControl.setRequiredLevel("required");
+    },
+
+    CheckIfPhotoIsDirty: function (executionContext) {
+        console.log("CheckIfPhotoIsDirty");
+        var formContext = executionContext.getFormContext();
+        var photoControl = formContext.getAttribute("cr5c0_photo");
+        if (photoControl.getIsDirty()) {
+            formContext.data.save();
+        }    
+    },
+
+    __namespace: true
+}
